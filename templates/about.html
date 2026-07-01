@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}About the Project | OptiCrop{% endblock %}
+
+{% block content %}
+<main class="content-shell">
+    <section class="content-card">
+        <p class="eyebrow">ABOUT THE PROJECT</p>
+        <h1>Smart Agricultural Production Optimization Engine</h1>
+        <p class="lead-text">
+            OptiCrop is a data-driven agritech prototype that leverages machine learning models to help farmers identify which crop is most suitable for their lands' physical and climatic properties.
+        </p>
+
+        <hr class="section-divider">
+
+        <h2>The Core Problem</h2>
+        <p>
+            Improper crop selection is a primary driver of low crop yield and agricultural bankruptcy. Cultivating crops that are not aligned with soil minerals or regional moisture averages requires excessive chemical fertilizers and water, leading to soil degradation, economic stress, and low environmental sustainability.
+        </p>
+
+        <h2>Dataset Specifications</h2>
+        <p>
+            The engine is trained on a crop recommendation dataset featuring 2,200 observations across 8 variables:
+        </p>
+        <ul class="spec-list">
+            <li><strong>Nitrogen (N)</strong>: Primary nutrient for plant leaf growth.</li>
+            <li><strong>Phosphorous (P)</strong>: Vital for root development and cell division.</li>
+            <li><strong>Potassium (K)</strong>: Regulates water balance and overall plant disease resistance.</li>
+            <li><strong>Temperature</strong>: Regional temperature in Celsius scale.</li>
+            <li><strong>Humidity</strong>: Atmospheric relative humidity percentage.</li>
+            <li><strong>pH</strong>: Soil acidity or alkalinity scale (ideal range: 5.5 to 7.5).</li>
+            <li><strong>Rainfall</strong>: Regional annual/seasonal rainfall in millimeters.</li>
+            <li><strong>Label</strong>: Target crop class containing 22 unique crop names.</li>
+        </ul>
+
+        <h2>Supervised Machine Learning Workflow</h2>
+        <p>
+            We trained and compared multiple classification pipelines. The test performance results from our 80/20 stratified split are summarized below:
+        </p>
+        
+        <table class="performance-table">
+            <thead>
+                <tr>
+                    <th>Classification Algorithm</th>
+                    <th>Scaling Applied</th>
+                    <th>Test Accuracy Score</th>
+                    <th>Selection Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="selected-row">
+                    <td><strong>Random Forest Classifier</strong></td>
+                    <td>No (Non-distance based)</td>
+                    <td><strong>99.32%</strong></td>
+                    <td>🏆 Selected for Deployment</td>
+                </tr>
+                <tr>
+                    <td>K-Nearest Neighbors (KNN)</td>
+                    <td>Yes (StandardScaler)</td>
+                    <td>97.95%</td>
+                    <td>Alternative</td>
+                </tr>
+                <tr>
+                    <td>Decision Tree Classifier</td>
+                    <td>No</td>
+                    <td>97.95%</td>
+                    <td>Alternative</td>
+                </tr>
+                <tr>
+                    <td>Logistic Regression</td>
+                    <td>Yes (StandardScaler)</td>
+                    <td>97.27%</td>
+                    <td>Alternative</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>End-to-End System Workflow</h2>
+        <p class="diagram-caption">Below is the complete data ingestion to prediction workflow diagram of the application:</p>
+        <div class="diagram-container">
+            <img src="/diagrams/workflow.png" alt="OptiCrop Workflow Diagram" class="diagram-image">
+        </div>
+
+        <h2>Database Entity Relationship Diagram</h2>
+        <p class="diagram-caption">The logical database model supporting crop queries, ML models metadata, soil records, and prediction reports:</p>
+        <div class="diagram-container">
+            <img src="/diagrams/erd.png" alt="OptiCrop ER Diagram" class="diagram-image">
+        </div>
+
+        <h2>Social & Environmental Impact</h2>
+        <p>
+            By suggesting crops that match local environmental baselines, OptiCrop promotes <strong>Precision Agriculture</strong>. This reduces excess fertilizer chemical runoff, prevents regional groundwater depletion, improves crop yields, and ensures long-term environmental sustainability.
+        </p>
+    </section>
+</main>
+{% endblock %}

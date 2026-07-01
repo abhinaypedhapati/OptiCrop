@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Find Your Best Crop | OptiCrop{% endblock %}
+
+{% block content %}
+<main class="content-shell">
+    <section class="form-card">
+        <p class="eyebrow">CROP RECOMMENDATION FORM</p>
+        <h1>Find Your Best Crop</h1>
+        <p class="muted">Enter the soil and climate parameters below. All fields are required to calculate the recommendation.</p>
+
+        <!-- Prediction Form -->
+        <form action="{{ url_for('predict') }}" method="post" class="prediction-form" id="prediction-form">
+            <div class="form-group">
+                <label for="N">Nitrogen (N)</label>
+                <span class="label-desc">Ratio of Nitrogen content in soil (mg/kg)</span>
+                <input name="N" id="N" type="number" step="any" min="0" placeholder="e.g. 90" required 
+                       value="{{ submitted_values.N if submitted_values and submitted_values.N is not none else '' }}">
+            </div>
+            
+            <div class="form-group">
+                <label for="P">Phosphorous (P)</label>
+                <span class="label-desc">Ratio of Phosphorous content in soil (mg/kg)</span>
+                <input name="P" id="P" type="number" step="any" min="0" placeholder="e.g. 42" required 
+                       value="{{ submitted_values.P if submitted_values and submitted_values.P is not none else '' }}">
+            </div>
+            
+            <div class="form-group">
+                <label for="K">Potassium (K)</label>
+                <span class="label-desc">Ratio of Potassium content in soil (mg/kg)</span>
+                <input name="K" id="K" type="number" step="any" min="0" placeholder="e.g. 43" required 
+                       value="{{ submitted_values.K if submitted_values and submitted_values.K is not none else '' }}">
+            </div>
+            
+            <div class="form-group">
+                <label for="temperature">Temperature (°C)</label>
+                <span class="label-desc">Average temperature in Celsius scale</span>
+                <input name="temperature" id="temperature" type="number" step="any" placeholder="e.g. 21.5" required 
+                       value="{{ submitted_values.temperature if submitted_values and submitted_values.temperature is not none else '' }}">
+            </div>
+            
+            <div class="form-group">
+                <label for="humidity">Humidity (%)</label>
+                <span class="label-desc">Relative humidity percentage (0 - 100)</span>
+                <input name="humidity" id="humidity" type="number" step="any" min="0" max="100" placeholder="e.g. 82.0" required 
+                       value="{{ submitted_values.humidity if submitted_values and submitted_values.humidity is not none else '' }}">
+            </div>
+            
+            <div class="form-group">
+                <label for="ph">Soil pH</label>
+                <span class="label-desc">Soil acidity/alkalinity level (0.0 - 14.0)</span>
+                <input name="ph" id="ph" type="number" step="any" min="0" max="14" placeholder="e.g. 6.5" required 
+                       value="{{ submitted_values.ph if submitted_values and submitted_values.ph is not none else '' }}">
+            </div>
+            
+            <div class="form-group full-width">
+                <label for="rainfall">Rainfall (mm)</label>
+                <span class="label-desc">Average seasonal/annual precipitation in mm</span>
+                <input name="rainfall" id="rainfall" type="number" step="any" min="0" placeholder="e.g. 202.9" required 
+                       value="{{ submitted_values.rainfall if submitted_values and submitted_values.rainfall is not none else '' }}">
+            </div>
+            
+            <div class="form-actions full-width">
+                <button class="button primary btn-predict" type="submit" id="btn-submit">
+                    <span class="btn-text">Predict Suitable Crop 🌱</span>
+                    <span class="spinner hidden" id="spinner"></span>
+                </button>
+            </div>
+        </form>
+
+        <!-- Prediction Result Output Card -->
+        {% if prediction_text %}
+            <div class="result-card {% if success %}success-card{% else %}error-card{% endif %} animate-fade-in">
+                <div class="card-status-bar"></div>
+                <div class="result-content">
+                    <div class="result-header">
+                        <span class="result-icon">{% if success %}🏆{% else %}⚠️{% endif %}</span>
+                        <h3>{% if success %}Recommendation Computed{% else %}Error Encountered{% endif %}</h3>
+                    </div>
+                    <p class="result-text">{{ prediction_text }}</p>
+                    {% if success and predicted_crop_name %}
+                        <div class="crop-badge">{{ predicted_crop_name }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    </section>
+</main>
+{% endblock %}

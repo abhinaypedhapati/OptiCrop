@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Home | OptiCrop Smart Recommendation{% endblock %}
+
+{% block content %}
+<main class="hero">
+    <div class="hero-card">
+        <p class="eyebrow">SMART AGRICULTURE DECISION SUPPORT</p>
+        <h1>Grow with data. Choose crops with confidence.</h1>
+        <p>
+            OptiCrop recommends suitable crops based on 7 critical parameters: Nitrogen (N), Phosphorous (P), Potassium (K), soil pH, temperature, relative humidity, and rainfall. Let machine learning help optimize your agricultural production.
+        </p>
+        <div class="hero-actions">
+            <a class="button primary" href="{{ url_for('findyourcrop') }}">Find Your Crop 🌱</a>
+            <a class="button secondary" href="{{ url_for('about') }}">Learn More 📖</a>
+        </div>
+    </div>
+</main>
+
+<section class="feature-grid-wrapper">
+    <h2 class="section-title">Why Use Precision Agritech?</h2>
+    <div class="feature-grid">
+        <article class="feature-card">
+            <div class="card-icon">🧪</div>
+            <h3>Soil-Aware</h3>
+            <p>Analyzes essential soil macronutrients (NPK) and pH levels to determine chemical crop compatibility.</p>
+        </article>
+        <article class="feature-card">
+            <div class="card-icon">⛅</div>
+            <h3>Climate-Aware</h3>
+            <p>Considers temperature trends, humidity variations, and precipitation volumes to match microclimates.</p>
+        </article>
+        <article class="feature-card">
+            <div class="card-icon">⚡</div>
+            <h3>Instant Result</h3>
+            <p>Calculates recommendations instantly using our optimized Random Forest classification pipeline.</p>
+        </article>
+    </div>
+</section>
+{% endblock %}
